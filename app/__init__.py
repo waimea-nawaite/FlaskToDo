@@ -21,14 +21,6 @@ register_error_handlers(app)
 
 
 #-----------------------------------------------------------
-# Home page route
-#-----------------------------------------------------------
-@app.get("/")
-def index():
-    return render_template("pages/home.jinja")
-
-
-#-----------------------------------------------------------
 # About page route
 #-----------------------------------------------------------
 @app.get("/about/")
@@ -39,16 +31,16 @@ def about():
 #-----------------------------------------------------------
 # Things page route - Show all the things, and new thing form
 #-----------------------------------------------------------
-@app.get("/things/")
+@app.get("/")
 def show_all_things():
     with connect_db() as client:
         # Get all the things from the DB
-        sql = "SELECT id, name FROM things ORDER BY name ASC"
+        sql = "SELECT priority, name FROM tasks ORDER BY name ASC"
         result = client.execute(sql)
-        things = result.rows
+        tasks = result.rows
 
         # And show them on the page
-        return render_template("pages/things.jinja", things=things)
+        return render_template("pages/home.jinja", tasks=tasks)
 
 
 #-----------------------------------------------------------
@@ -58,7 +50,7 @@ def show_all_things():
 def show_one_thing(id):
     with connect_db() as client:
         # Get the thing details from the DB
-        sql = "SELECT id, name, price FROM things WHERE id=?"
+        sql = "SELECT id, name, priority FROM tasks WHERE id=?"
         values = [id]
         result = client.execute(sql, values)
 
@@ -79,21 +71,21 @@ def show_one_thing(id):
 @app.post("/add")
 def add_a_thing():
     # Get the data from the form
-    name  = request.form.get("name")
-    price = request.form.get("price")
+    task  = request.form.get("task")
+    priority = request.form.get("priority")
 
     # Sanitise the inputs
-    name = html.escape(name)
-    price = html.escape(price)
+    task = html.escape(task)
+    priority = html.escape(priority)
 
     with connect_db() as client:
         # Add the thing to the DB
-        sql = "INSERT INTO things (name, price) VALUES (?, ?)"
-        values = [name, price]
+        sql = "INSERT INTO tasks (name, priority) VALUES (?, ?)"
+        values = [task, priority]
         client.execute(sql, values)
 
         # Go back to the home page
-        flash(f"Thing '{name}' added", "success")
+        flash(f"Thing '{task}' added", "success")
         return redirect("/things")
 
 
