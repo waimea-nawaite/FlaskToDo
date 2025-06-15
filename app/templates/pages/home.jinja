@@ -19,25 +19,26 @@
 
     <h1>task...</h1>
 
-    <article>
+        <article>
 
-        <ul>
-            {% for thing in tasks %}
+            <ul>
+                {% for thing in tasks %}
 
-                <li>
-                    <a href="/thing/{{ thing.id }}">
-                        {{ thing.priority, thing.name }}
-                    </a>
-                </li>
+                    <li>
+                        <a href="/thing/{{ thing.id }}">
+                            {{ thing.priority, thing.name }}
+                        </a>
+                    </li>
 
-            {% else %}
+                {% else %}
 
-                <p>None!</p>
+                    <p>None!</p>
 
-            {% endfor %}
-        </ul>
+                {% endfor %}
+            </ul>
 
-    </article>
+        </article>
+
 
     <article>
 

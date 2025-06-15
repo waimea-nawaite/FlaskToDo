@@ -58,7 +58,7 @@ def show_one_thing(id):
         if result.rows:
             # yes, so show it on the page
             thing = result.rows[0]
-            return render_template("pages/thing.jinja", thing=thing)
+            return render_template("pages/thing/.jinja", thing=thing)
 
         else:
             # No, so show error
@@ -86,7 +86,7 @@ def add_a_thing():
 
         # Go back to the home page
         flash(f"Thing '{task}' added", "success")
-        return redirect("/things")
+        return redirect("/")
 
 
 #-----------------------------------------------------------
@@ -96,12 +96,12 @@ def add_a_thing():
 def delete_a_thing(id):
     with connect_db() as client:
         # Delete the thing from the DB
-        sql = "DELETE FROM things WHERE id=?"
+        sql = "DELETE FROM tasks WHERE id=?"
         values = [id]
         client.execute(sql, values)
 
         # Go back to the home page
         flash("Thing deleted", "warning")
-        return redirect("/things")
+        return redirect("/thing")
 
 
