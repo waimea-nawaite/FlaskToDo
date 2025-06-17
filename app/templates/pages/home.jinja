@@ -21,24 +21,25 @@
 
         <article>
 
-            <ul>
-                {% for thing in tasks %}
+            {% for task in tasks %}
 
-                    <li>
-                        <a href="/thing/{{ thing.id }}">
-                            {{ thing.priority, thing.name }}
-                        </a>
-                    </li>
+                <ul class="task">
+                    {% if task.complete %} 
+                        🗹 
+                    {% else %} 
+                        ☐ 
+                    {% endif %}
 
-                {% else %}
+                    {{ task.priority }} {{ task.name }}
+                </ul>
 
-                    <p>None!</p>
+            {% else %}
 
-                {% endfor %}
-            </ul>
+                <p>None!</p>
+
+            {% endfor %}
 
         </article>
-
 
     <article>
 
@@ -58,12 +59,14 @@
                 name="priority"
                 min="0"
                 max="5"
-                placeholder="Whats the priority"
+                placeholder="Priority"
                 required
             >
+            
 
 
-            <button>Add the task</button>
+            <button>Add</button>
+            <button>Delete</button>
 
         </form>
 

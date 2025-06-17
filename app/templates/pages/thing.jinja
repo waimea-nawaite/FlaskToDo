@@ -22,13 +22,13 @@
     <article>
 
         <header>
-            <h3>{{ thing.name }}</h3>
+            <h3>{{ task.name }}</h3>
         </header>
 
-        <p>priority: <strong>{{ thing.priority }}</strong></p>
+        <p>priority: <strong>{{ task.priority }}</strong></p>
 
         <footer>
-            <a href="/delete/{{ thing.id }}" onclick="return confirm('Really delete?');">Delete</a>
+            <a href="/delete/{{ task.id }}" onclick="return confirm('Really delete?');">Delete</a>
         </footer>
 
     </article>
