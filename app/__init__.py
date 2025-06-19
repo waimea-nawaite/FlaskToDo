@@ -23,7 +23,7 @@ register_error_handlers(app)
 #-----------------------------------------------------------
 # About page route
 #-----------------------------------------------------------
-@app.get("/about")
+@app.get("/about/")
 def about():
     return render_template("pages/about.jinja")
 
@@ -35,7 +35,7 @@ def about():
 def show_all_tasks():
     with connect_db() as client:
         # Get all the things from the DB
-        sql = "SELECT priority, name, id, complete FROM tasks ORDER BY name ASC"
+        sql = "SELECT priority, name, id, complete FROM tasks ORDER BY priority DESC"
         result = client.execute(sql)
         tasks = result.rows
 
@@ -101,21 +101,26 @@ def delete_a_task(id):
         client.execute(sql, values)
 
         # Go back to the home page
-        flash("Task deleted", "warning")
-        return redirect("/task")
-
-# #-----------------------------------------------------------
-# # A incomplete task
-# #-----------------------------------------------------------
-# @app.get("/incomplete/<int:id>")
-# def complete_a_task():
-#     with connect_db() as client:
-#         return
+        return redirect("/")
 
 # #-----------------------------------------------------------
 # # A complete task
 # #-----------------------------------------------------------
-# @app.get("/complete/<int:id>")
-# def complete_a_task():
-#     with connect_db() as client:
-#         return
+@app.get("/complete/<int:id>")
+def complete_task(id):
+    with connect_db() as client:
+        sql = "UPDATE tasks set complete=? WHERE=?"
+        values = [1, id]
+        client.execute(sql, values)
+        return redirect("/")
+    
+# #-----------------------------------------------------------
+# # A incomplete task
+# #-----------------------------------------------------------
+@app.get("/incomplete/<int:id>")
+def incomplete_task(id):
+    with connect_db() as client:
+        sql = "UPDATE tasks set complete=? WHERE=?"
+        values = [0, id]
+        client.execute(sql, values)
+        return redirect("/")

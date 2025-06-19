@@ -25,10 +25,11 @@
 
                 <ul class="task">
                     {% if task.complete %} 
-                        🗹 
+                        <a href="/incomplete/{{ task.id }}">🗹</a>
                     {% else %} 
-                        ☐ 
+                        <a href="/complete/{{ task.id }}">☐</a>
                     {% endif %}
+                        <a href="/delete/{{ task.id }}">Remove</a>
 
                     {{ task.priority }} {{ task.name }}
                 </ul>
@@ -62,11 +63,8 @@
                 placeholder="Priority"
                 required
             >
-            
-
 
             <button>Add</button>
-            <button>Delete</button>
 
         </form>
 
