@@ -109,10 +109,10 @@ def delete_a_task(id):
 @app.get("/complete/<int:id>")
 def complete_task(id):
     with connect_db() as client:
-        sql = "UPDATE tasks set complete=? WHERE=?"
-        values = [1, id]
+        sql = "UPDATE tasks SET complete=1 WHERE id=?"
+        values = [id]
         client.execute(sql, values)
-        return redirect("/")
+    return redirect("/")
     
 # #-----------------------------------------------------------
 # # A incomplete task
@@ -120,7 +120,7 @@ def complete_task(id):
 @app.get("/incomplete/<int:id>")
 def incomplete_task(id):
     with connect_db() as client:
-        sql = "UPDATE tasks set complete=? WHERE=?"
-        values = [0, id]
+        sql = "UPDATE tasks SET complete=0 WHERE id=?"
+        values = [id]
         client.execute(sql, values)
-        return redirect("/")
+    return redirect("/")

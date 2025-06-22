@@ -23,13 +23,13 @@
 
             {% for task in tasks %}
 
-                <ul class="task">
+                <ul>
                     {% if task.complete %} 
-                        <a href="/incomplete/{{ task.id }}">🗹</a>
+                    <a href="/incomplete/{{ task.id }}">🗹</a>
                     {% else %} 
-                        <a href="/complete/{{ task.id }}">☐</a>
+                    <a href="/complete/{{ task.id }}">☐</a>
                     {% endif %}
-                        <a href="/delete/{{ task.id }}">Remove</a>
+                    <a href="/delete/{{ task.id }}">Remove</a>
 
                     {{ task.priority }} {{ task.name }}
                 </ul>
